@@ -1,13 +1,14 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyClQsnT2_TOYO8t-BaLKODR7tSyUb-CtJ4",
-    authDomain: "adarsh-blogs-b9c43.firebaseapp.com",
-    projectId: "adarsh-blogs-b9c43",
-    storageBucket: "adarsh-blogs-b9c43.firebasestorage.app",
-    messagingSenderId: "756897750652",
-    appId: "1:756897750652:web:11e6449261dd6fb45e73f9",
-    measurementId: "G-B4RW039WVG"
+    apiKey: "AIzaSyDNqfHEIZr6vT7b3vqakj5wIzbBmxyozLc",
+    authDomain: "first-firebase-project-caf2b.firebaseapp.com",
+    databaseURL: "https://first-firebase-project-caf2b-default-rtdb.firebaseio.com",
+    projectId: "first-firebase-project-caf2b",
+    storageBucket: "first-firebase-project-caf2b.appspot.com",
+    messagingSenderId: "39709489558",
+    appId: "1:39709489558:web:09e31c099960f3cc99c5b7",
+    measurementId: "G-EKWP9NNXS2"
 };
 
 

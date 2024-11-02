@@ -20,8 +20,10 @@ const router = createBrowserRouter([
           { path: 'blog', Component: BlogList },
           { path: 'addBlog', Component: AddNewBlog },
           { path: 'category', Component: CategoryList },
-          { path: 'addCategory', Component: AddNewCategory },
-          {path: 'comment', Component: CommentList}
+          { path: 'addCategory', element: <AddNewCategory key='add' mode='add'/> },
+          { path: 'comment', Component: CommentList },
+          { path: 'editCategory', element: <AddNewCategory key='edit' mode='edit' /> }
+          
       ]}
   ]}
 ])
