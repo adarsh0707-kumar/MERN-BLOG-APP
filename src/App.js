@@ -9,13 +9,14 @@ import AddNewBlog from './admin/AddBlog/AddNewBlog';
 import CategoryList from './admin/CategoryList/CategoryList';
 import AddNewCategory from './admin/AddCategory/AddNewCategory';
 import CommentList from './admin/CommentList/CommentList';
+import { isLogin } from '../src/checkAuth';
 
 const router = createBrowserRouter([
   {
     path: 'admin', element: <AdminLayOut />, children: [
       { path: 'login', Component: AdminLogin },
       {
-        path: 'dashboard', Component: AdminDashboard, children: [
+        path: 'dashboard', loader: isLogin, Component: AdminDashboard, children: [
           { path: '', Component: Home },
           { path: 'blog', element: <BlogList/> },
           { path: 'addBlog', element: <AddNewBlog key='addBlog' mode='addBlog' /> },

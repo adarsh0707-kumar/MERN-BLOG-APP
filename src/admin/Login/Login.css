@@ -54,8 +54,15 @@
     border-radius: 10px;
     background: rgb(45, 9, 208);
     color: #fff;
-
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
+
+
 @media screen and (max-width:1200px) {
     .loginContainer__loginBox {
         width: 50%;

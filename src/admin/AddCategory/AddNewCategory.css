@@ -44,5 +44,8 @@
     background: rgb(45, 9, 208);
     font-size: 20px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 

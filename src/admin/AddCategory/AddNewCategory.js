@@ -4,7 +4,7 @@ import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from 'fire
 import { app } from '../../Firebase';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const AddNewCategory = () => {
@@ -15,6 +15,7 @@ const AddNewCategory = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoding, setLoding] = useState(false);
 
 
   useEffect(() => {
@@ -35,8 +36,9 @@ const AddNewCategory = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    setLoding(true)
     if (location.state == null) {
-
+      
       console.log(categoryName, file);
       const storage = getStorage(app);
       const myRef = storageRef(storage, `category/${Date.now()}`);
@@ -53,6 +55,7 @@ const AddNewCategory = () => {
       })
         .then(res => {
           console.log(res.data);
+          setLoding(false)
           navigate('/admin/dashboard/category')
         })
         .catch(err => {
@@ -72,6 +75,7 @@ const AddNewCategory = () => {
         })
           .then(res => {
             console.log(res.data);
+            setLoding(false)
             navigate('/admin/dashboard/category')
           })
           .catch(err => {
@@ -96,6 +100,7 @@ const AddNewCategory = () => {
         })
           .then(res => {
             console.log(res.data);
+            setLoding(false)
             navigate('/admin/dashboard/category')
           })
           .catch(err => {
@@ -114,7 +119,7 @@ const AddNewCategory = () => {
         <input value={categoryName} onChange={(e) => { setCategoryName(e.target.value) }} className='addCategory__form__input' type='text' placeholder='Category Name' />
         <input onChange={(e) => { fileHandler(e) }} className='addCategory__form__input' type='file' />
         {imageUrl != null && <img className='addCategory__form__img' src={imageUrl} alt={categoryName} />}
-        <button className='addCategory__form__btn' type='submit'>Submit</button>
+        <button className='addCategory__form__btn' type='submit'>{isLoding && <CircularProgress size={22} color="inherit" style={{ marginRight: '10px' }} />}<span>Submit</span></button>
 
       </form>
 

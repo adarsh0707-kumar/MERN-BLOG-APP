@@ -6,13 +6,18 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CategoryIcon from '@mui/icons-material/Category';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import('../Dashboard/Dashboard.css');
 
 
 const Dashboard = () => {
 
+  const navigate = useNavigate();
 
+  const logOutHandler = () => {
+    localStorage.clear();
+    navigate('/admin/login');
+  }
 
 
   return (
@@ -30,7 +35,7 @@ const Dashboard = () => {
         <Link to='/admin/dashboard/category' className='dashboard__sideNavbar__link'><CategoryIcon /><span>Category List</span></Link>
         <Link to='/admin/dashboard/addCategory' className='dashboard__sideNavbar__link'><PlaylistAddIcon /><span>Add Category</span></Link>
         <Link to='/admin/dashboard/comment' className='dashboard__sideNavbar__link'><MapsUgcIcon /><span>Comments</span></Link>
-        <Link className='dashboard__sideNavbar__link'><PeopleAltIcon /><span>Log Out</span></Link>
+        <Link onClick={logOutHandler} className='dashboard__sideNavbar__link'><PeopleAltIcon /><span>Log Out</span></Link>
 
       </div>
 

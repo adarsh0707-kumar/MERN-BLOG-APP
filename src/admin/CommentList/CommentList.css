@@ -29,6 +29,7 @@
     text-align: justify;
     overflow: auto;
     margin-bottom: 2rem;
+    overflow-y: auto;
 }
 
 .commentList__data span{
@@ -43,6 +44,8 @@
     font-size: 18px;
     margin-left: 2.5%;
     color: #5b3a29;
+    padding-right: 5px;
+    margin-top: 7px;
 }
 
 

@@ -4,13 +4,14 @@ import '../BlogList/BlogList.css';
 import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
 import { app } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const BlogList = () => {
 
     const [blog, setBlog] = useState([]);
     const navigate = useNavigate();
+    const [isLoding, setLoding] = useState(false);
 
 
 
@@ -30,8 +31,9 @@ const BlogList = () => {
     }
 
     const deleteBlog = (data) => {
+        
         if (window.confirm("Are you sure, want to delete ?? ")) {
-
+            setLoding(true);
             const storage = getStorage(app);
             const myRef = storageRef(storage, `${data.imageUrl}`);
             deleteObject(myRef)
@@ -42,6 +44,7 @@ const BlogList = () => {
                         }
                     })
                         .then(res => {
+                            setLoding(false);
                             console.log(res);
                             getBlogs();
                         })
@@ -53,14 +56,11 @@ const BlogList = () => {
                     console.error(err);
                 })
 
-
-
         }
     }
 
     return (
         <div className='blogList'>
-            <p className='categoryList__para'>Blog List</p>
             {blog.map((Data) => (
                 <div key={Data._id} className='blogList__data'>
                     <div className="blogList__data__content">
@@ -69,7 +69,7 @@ const BlogList = () => {
 
                     
                     <div className="blogList__data__content">
-                        <p className='blogList__data__content__para'>{Data.category}</p>
+                        <p className='blogList__data__content__para2'>{Data.category}</p>
                     </div>
 
                     <div className="blogList__data__content">
@@ -81,7 +81,7 @@ const BlogList = () => {
                     </div>
 
                     <div className="blogList__data__content">
-                        <button onClick={() => { deleteBlog(Data) }} className='blogList__data__content__btn2'>Delet</button>
+                        <button onClick={() => { deleteBlog(Data) }} className='blogList__data__content__btn2'>{isLoding && <CircularProgress size={22} color="inherit" style={{ marginRight: '10px' }} />}<span>Delete</span></button>
                     </div>
 
 

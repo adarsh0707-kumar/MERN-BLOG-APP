@@ -5,11 +5,14 @@ import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
 import { app } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const CategoryList = () => {
 
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
+  const [isLoding, setLoding] = useState(false);
 
 
 
@@ -29,8 +32,9 @@ const CategoryList = () => {
   }
 
   const deleteCategory = (data) => {
+    
     if (window.confirm("Are you sure, want to delete ?? ")) {
-
+      setLoding(true);
       const storage = getStorage(app);
       const myRef = storageRef(storage, `${data.imageUrl}`);
       deleteObject(myRef)
@@ -41,6 +45,7 @@ const CategoryList = () => {
             }
           })
             .then(res => {
+              setLoding(false)
               console.log(res);
               getCategory();
             })
@@ -59,7 +64,6 @@ const CategoryList = () => {
 
   return (
     <div className='categoryList'>
-      <p className='categoryList__para'>Category List</p>
       {category.map((Data) => (
         <div key={Data._id} className='categoryList__data'>
           <div className="categoryList__data__content">
@@ -75,7 +79,7 @@ const CategoryList = () => {
           </div>
 
           <div className="categoryList__data__content">
-            <button onClick={() => { deleteCategory(Data) }} className='categoryList__data__content__btn2'>Delet</button>
+            <button onClick={() => { deleteCategory(Data) }} className='categoryList__data__content__btn2'>{isLoding && <CircularProgress size={22} color="inherit" style={{ marginRight: '10px' }} />}<span>Delete</span></button>
           </div>
 
 

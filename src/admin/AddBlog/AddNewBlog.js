@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 
@@ -18,6 +19,7 @@ const AddNewBlog = () => {
   const [blog, setBlog] = useState('');
   const [categoryName, setCategoryName] = useState(null);
   const [categoryList, setCategoryList] = useState([]);
+  const [isLoding, setLoding] = useState(false);
 
 
   const navigate = useNavigate();
@@ -56,6 +58,7 @@ const AddNewBlog = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    setLoding(true)
     if (location.state == null) {
 
       console.log(blogName, file);
@@ -76,6 +79,7 @@ const AddNewBlog = () => {
       })
         .then(res => {
           console.log(res.data);
+          setLoding(false)
           navigate('/admin/dashboard/blog')
         })
         .catch(err => {
@@ -97,6 +101,7 @@ const AddNewBlog = () => {
         })
           .then(res => {
             console.log(res.data);
+            setLoding(false)
             navigate('/admin/dashboard/blog')
           })
           .catch(err => {
@@ -123,6 +128,7 @@ const AddNewBlog = () => {
         })
           .then(res => {
             console.log(res.data);
+            setLoding(false)
             navigate('/admin/dashboard/blog')
           })
           .catch(err => {
@@ -162,7 +168,7 @@ const AddNewBlog = () => {
 
         <input onChange={(e) => { fileHandler(e) }} className='addBlog__form__input' type='file' />
         {imageUrl != null && <img className='addBlog__form__img' src={imageUrl} alt={blogName} />}
-        <button className='addBlog__form__btn' type='submit'>Submit</button>
+        <button className='addBlog__form__btn' type='submit'>{isLoding && <CircularProgress size={22} color="inherit" style={{ marginRight: '10px' }} />}<span>Submit</span></button>
 
       </form>
 
