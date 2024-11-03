@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import '../CategoryList/CategoryList.css';
-import {deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
+import { deleteObject, getStorage, ref as storageRef } from 'firebase/storage';
 import { app } from '../../Firebase';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,17 +15,17 @@ const CategoryList = () => {
 
   useEffect(() => {
     getCategory();
-  })
+  }, [])
 
   const getCategory = () => {
     axios.get('http://www.localhost:3001/category')
       .then(res => {
-        // console.log(res.data.category);
+        console.log(res.data.category);
         setCategory(res.data.category);
       })
       .catch(err => {
         console.error(err);
-    })
+      })
   }
 
   const deleteCategory = (data) => {
@@ -35,7 +35,11 @@ const CategoryList = () => {
       const myRef = storageRef(storage, `${data.imageUrl}`);
       deleteObject(myRef)
         .then(result => {
-          axios.delete(`http://www.localhost:3001/category/${data._id}`)
+          axios.delete(`http://www.localhost:3001/category/${data._id}`, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem('token')
+            }
+          })
             .then(res => {
               console.log(res);
               getCategory();
@@ -46,10 +50,10 @@ const CategoryList = () => {
         })
         .catch(err => {
           console.error(err);
-      })
-      
+        })
 
-      
+
+
     }
   }
 
@@ -61,21 +65,21 @@ const CategoryList = () => {
           <div className="categoryList__data__content">
             <p className='categoryList__data__content__para'>{Data.name}</p>
           </div>
-          
+
           <div className="categoryList__data__content">
             <img className='categoryList__data__content__img' src={Data.imageUrl} alt={Data.name} />
           </div>
-          
+
           <div className="categoryList__data__content">
-            <button onClick={() => { navigate('/admin/dashboard/editCategory',{state:{myData:Data}})}} className='categoryList__data__content__btn1'>Edit</button>
+            <button onClick={() => { navigate('/admin/dashboard/editCategory', { state: { myData: Data } }) }} className='categoryList__data__content__btn1'>Edit</button>
           </div>
 
           <div className="categoryList__data__content">
-            <button onClick={() => { deleteCategory (Data)}} className='categoryList__data__content__btn2'>Delet</button>
+            <button onClick={() => { deleteCategory(Data) }} className='categoryList__data__content__btn2'>Delet</button>
           </div>
 
-          
-          
+
+
         </div>
       ))}
     </div>

@@ -1,29 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import '../AddCategory/AddNewCategory.css';
+import '../AddBlog/AddNewBlog.css';
 import { getDownloadURL, getStorage, ref as storageRef, uploadBytes } from 'firebase/storage';
 import { app } from '../../Firebase';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
 
 
 const AddNewBlog = () => {
 
 
-  const [categoryName, setCategoryName] = useState('');
+  const [blogName, setBlogName] = useState('');
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [blog, setBlog] = useState('');
+  const [categoryName, setCategoryName] = useState(null);
+  const [categoryList, setCategoryList] = useState([]);
+
+
   const navigate = useNavigate();
   const location = useLocation();
 
 
   useEffect(() => {
+    getCategory()
     console.log(location.state);
     if (location.state != null) {
-      setCategoryName(location.state.myData.name);
+      setBlogName(location.state.myData.title);
+      setBlog(location.state.myData.description);
+      setCategoryName(location.state.myData.category);
       setImageUrl(location.state.myData.imageUrl);
     }
   }, [location.state])
+
+  const getCategory = () => {
+    axios.get('http://www.localhost:3001/category')
+      .then(res => {
+        console.log(res.data.category);
+        setCategoryList(res.data.category);
+      })
+      .catch(err => {
+        console.error(err);
+      })
+  }
 
 
   const fileHandler = (e) => {
@@ -37,19 +58,25 @@ const AddNewBlog = () => {
     event.preventDefault();
     if (location.state == null) {
 
-      console.log(categoryName, file);
+      console.log(blogName, file);
       const storage = getStorage(app);
-      const myRef = storageRef(storage, `category/${Date.now()}`);
+      const myRef = storageRef(storage, `blogs/${Date.now()}`);
       await uploadBytes(myRef, file)
       const uploadedImageUrl = await getDownloadURL(myRef);
       console.log(uploadedImageUrl);
-      axios.post('http://www.localhost:3001/category', {
-        name: categoryName,
+      axios.post('http://www.localhost:3001/blogs', {
+        title: blogName,
+        description: blog,
+        category: categoryName,
         imageUrl: uploadedImageUrl
+      }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem('token')
+        }
       })
         .then(res => {
           console.log(res.data);
-          navigate('/admin/dashboard/category')
+          navigate('/admin/dashboard/blog')
         })
         .catch(err => {
           console.error(err);
@@ -58,13 +85,19 @@ const AddNewBlog = () => {
     else {
       if (file == null) {
 
-        axios.put(`http://www.localhost:3001/category/${location.state.myData._id}`, {
-          name: categoryName,
+        axios.put(`http://www.localhost:3001/blogs/${location.state.myData._id}`, {
+          title: blogName,
+          description: blog,
+          category: categoryName,
           imageUrl: location.state.myData.imageUrl
+        }, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+          }
         })
           .then(res => {
             console.log(res.data);
-            navigate('/admin/dashboard/category')
+            navigate('/admin/dashboard/blog')
           })
           .catch(err => {
             console.error(err);
@@ -72,19 +105,25 @@ const AddNewBlog = () => {
       }
       else {
 
-        console.log(categoryName, file);
+        console.log(blogName, file);
         const storage = getStorage(app);
         const myRef = storageRef(storage, `${location.state.myData.imageUrl}`);
         await uploadBytes(myRef, file)
         const uploadedImageUrl = await getDownloadURL(myRef);
         console.log(uploadedImageUrl);
-        axios.put(`http://www.localhost:3001/category/${location.state.myData._id}`, {
-          name: categoryName,
+        axios.put(`http://www.localhost:3001/blogs/${location.state.myData._id}`, {
+          title: blogName,
+          description: blog,
+          category: categoryName,
           imageUrl: uploadedImageUrl
+        }, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+          }
         })
           .then(res => {
             console.log(res.data);
-            navigate('/admin/dashboard/category')
+            navigate('/admin/dashboard/blog')
           })
           .catch(err => {
             console.error(err);
@@ -94,15 +133,36 @@ const AddNewBlog = () => {
     }
   }
 
+  const blogHandler = (content, delta) => {
+    console.log(content)
+    setBlog(content);
+  }
+
   return (
-    <div className="addCategory">
+    <div className="addBlog">
 
-      <form onSubmit={submitHandler} className='addCategory__form'>
+      <form onSubmit={submitHandler} className='addBlog__form'>
 
-        <input value={categoryName} onChange={(e) => { setCategoryName(e.target.value) }} className='addCategory__form__input' type='text' placeholder='Category Name' />
-        <input onChange={(e) => { fileHandler(e) }} className='addCategory__form__input' type='file' />
-        {imageUrl != null && <img className='addCategory__form__img' src={imageUrl} alt={categoryName} />}
-        <button className='addCategory__form__btn' type='submit'>Submit</button>
+        <input value={blogName} onChange={(e) => { setBlogName(e.target.value) }} className='addBlog__form__input' type='text' placeholder='Blog Titel' />
+        {/* <input value={blog} onChange={(e) => { setBlog(e.target.value) }} className='addBlog__form__input' type='text' placeholder='Blog ' /> */}
+
+        <ReactQuill
+          className='addBlog__form__quill'
+          value={blog}
+          onChange={blogHandler}
+        />
+
+
+        <select onChange={(e) => { setCategoryName(e.target.value) }} value={categoryName} className='addBlog__form__select'>
+          <option>Select Category</option>
+          {categoryList.map(data => (
+            <option key={data._id} value={data.name}>{data.name}</option>
+          ))}
+        </select>
+
+        <input onChange={(e) => { fileHandler(e) }} className='addBlog__form__input' type='file' />
+        {imageUrl != null && <img className='addBlog__form__img' src={imageUrl} alt={blogName} />}
+        <button className='addBlog__form__btn' type='submit'>Submit</button>
 
       </form>
 

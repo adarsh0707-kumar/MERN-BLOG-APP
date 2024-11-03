@@ -23,7 +23,7 @@ const AddNewCategory = () => {
       setCategoryName(location.state.myData.name);
       setImageUrl(location.state.myData.imageUrl);
     }
-  },[location.state])
+  }, [location.state])
 
 
   const fileHandler = (e) => {
@@ -46,6 +46,10 @@ const AddNewCategory = () => {
       axios.post('http://www.localhost:3001/category', {
         name: categoryName,
         imageUrl: uploadedImageUrl
+      }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem('token')
+        }
       })
         .then(res => {
           console.log(res.data);
@@ -61,6 +65,10 @@ const AddNewCategory = () => {
         axios.put(`http://www.localhost:3001/category/${location.state.myData._id}`, {
           name: categoryName,
           imageUrl: location.state.myData.imageUrl
+        }, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+          }
         })
           .then(res => {
             console.log(res.data);
@@ -71,7 +79,7 @@ const AddNewCategory = () => {
           });
       }
       else {
-        
+
         console.log(categoryName, file);
         const storage = getStorage(app);
         const myRef = storageRef(storage, `${location.state.myData.imageUrl}`);
@@ -81,6 +89,10 @@ const AddNewCategory = () => {
         axios.put(`http://www.localhost:3001/category/${location.state.myData._id}`, {
           name: categoryName,
           imageUrl: uploadedImageUrl
+        }, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+          }
         })
           .then(res => {
             console.log(res.data);

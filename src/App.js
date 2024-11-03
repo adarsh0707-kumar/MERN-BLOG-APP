@@ -17,12 +17,13 @@ const router = createBrowserRouter([
       {
         path: 'dashboard', Component: AdminDashboard, children: [
           { path: '', Component: Home },
-          { path: 'blog', Component: BlogList },
-          { path: 'addBlog', Component: AddNewBlog },
-          { path: 'category', Component: CategoryList },
+          { path: 'blog', element: <BlogList/> },
+          { path: 'addBlog', element: <AddNewBlog key='addBlog' mode='addBlog' /> },
+          { path: 'category', element: <CategoryList/> },
           { path: 'addCategory', element: <AddNewCategory key='add' mode='add'/> },
-          { path: 'comment', Component: CommentList },
-          { path: 'editCategory', element: <AddNewCategory key='edit' mode='edit' /> }
+          { path: 'comment', element: <CommentList/> },
+          { path: 'editCategory', element: <AddNewCategory key='edit' mode='edit' /> },
+          { path: 'editBlog', element: <AddNewBlog key='editBlog' mode='editBlog' /> }
           
       ]}
   ]}
