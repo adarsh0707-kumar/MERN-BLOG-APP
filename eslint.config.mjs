@@ -3,8 +3,8 @@ import pluginJs from "@eslint/js";
 import pluginReact from "eslint-plugin-react";
 import pluginPrettier from "eslint-plugin-prettier";
 
-import pkg from 'eslint';
-import configsPKG from 'eslint-plugin-react';
+import pkg from "eslint";
+import configsPKG from "eslint-plugin-react";
 
 const { config } = pkg;
 const { configs } = configsPKG;
@@ -17,23 +17,24 @@ export default [
       globals: globals.browser,
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
+          jsx: true,
         },
         ecmaVersion: 2022,
-        sourceType: "module"
+        sourceType: "module",
       },
       env: {
         browser: true,
-        node: true
-      }
+        node: true,
+      },
     },
+
     ...pluginJs.configs.recommended,
     ...pluginReact.configs.flat.recommended,
     plugins: {
       react: pluginReact,
-      prettier: pluginPrettier
+      prettier: pluginPrettier,
     },
-    
+
     rules: {
       "react/jsx-uses-react": "error",
       "react/jsx-uses-vars": "error",
@@ -43,9 +44,9 @@ export default [
       "indent-legacy": ["error", "tab"],
       "lines-between-class-members": ["error", "always"],
       "no-trailing-spaces": "error",
-      "semi": ["error", "always"],
-      "quotes": ["error", "double"],
-      "prettier/prettier": ["error"]
-    }
-  }
+      "semi": ["warn", "always"],
+      "quotes": ["warn", "double"],
+      "prettier/prettier": ["error"],
+    },
+  },
 ];
