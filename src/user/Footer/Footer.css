@@ -1,0 +1,20 @@
+.footer{
+    height: 28vw;
+    background: linear-gradient(to right, rgb(0, 234, 255), rgb(9, 82, 219));
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.footer__logo{
+    width: 50%;
+}
+.footer__logo__img{
+    height: 21vw;
+    margin-top: 1vw;
+    margin-left: 2vw;
+}
+
+.footer__nav {
+    width: 50%;
+}

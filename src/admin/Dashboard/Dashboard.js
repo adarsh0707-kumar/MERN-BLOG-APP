@@ -10,56 +10,75 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import("../Dashboard/Dashboard.css");
 
 const Dashboard = () => {
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	const logOutHandler = () => {
-		localStorage.clear();
-		navigate("/admin/login");
-	};
+    const logOutHandler = () => {
+        localStorage.clear();
+        navigate("/admin/login");
+    };
 
-	return (
-		<div className="dashboard">
-			<div className="dashboard__sideNavbar">
-				<div className="dashboard__sideNavbar__logoContainer">
-					<img className="dashboard__sideNavbar__logoContainer__logo" src={require("../../assets/a.png")} alt="logo" />
-					<h1 className="dashboard__sideNavbar__logoContainer__logoHeading">Adarsh MERN Blog App</h1>
-				</div>
+    return (
+        <div className="dashboard">
+            <div className="dashboard__sideNavbar">
+                <div className="dashboard__sideNavbar__logoContainer">
+                    <img
+                        className="dashboard__sideNavbar__logoContainer__logo"
+                        src={require("../../assets/a.png")}
+                        alt="logo"
+                    />
+                    <h1 className="dashboard__sideNavbar__logoContainer__logoHeading">Adarsh MERN Blog App</h1>
+                </div>
 
-				<Link to="/admin/dashboard/" className="dashboard__sideNavbar__link" style={{ background: "orange" }}>
-					<DashboardIcon />
-					<span>Dashboard</span>
-				</Link>
-				<Link to="/admin/dashboard/blog" className="dashboard__sideNavbar__link">
-					<EditNoteIcon />
-					<span>Blog List</span>
-				</Link>
-				<Link to="/admin/dashboard/addBlog" className="dashboard__sideNavbar__link">
-					<AddBoxSharpIcon />
-					<span>Add Blog</span>
-				</Link>
-				<Link to="/admin/dashboard/category" className="dashboard__sideNavbar__link">
-					<CategoryIcon />
-					<span>Category List</span>
-				</Link>
-				<Link to="/admin/dashboard/addCategory" className="dashboard__sideNavbar__link">
-					<PlaylistAddIcon />
-					<span>Add Category</span>
-				</Link>
-				<Link to="/admin/dashboard/comment" className="dashboard__sideNavbar__link">
-					<MapsUgcIcon />
-					<span>Comments</span>
-				</Link>
-				<Link onClick={logOutHandler} className="dashboard__sideNavbar__link">
-					<PeopleAltIcon />
-					<span>Log Out</span>
-				</Link>
-			</div>
+                <Link
+                    to="/admin/dashboard/"
+                    className="dashboard__sideNavbar__link"
+                    style={{ background: "orange" }}>
+                    <DashboardIcon />
+                    <span>Dashboard</span>
+                </Link>
+                <Link
+                    to="/admin/dashboard/blog"
+                    className="dashboard__sideNavbar__link">
+                    <EditNoteIcon />
+                    <span>Blog List</span>
+                </Link>
+                <Link
+                    to="/admin/dashboard/addBlog"
+                    className="dashboard__sideNavbar__link">
+                    <AddBoxSharpIcon />
+                    <span>Add Blog</span>
+                </Link>
+                <Link
+                    to="/admin/dashboard/category"
+                    className="dashboard__sideNavbar__link">
+                    <CategoryIcon />
+                    <span>Category List</span>
+                </Link>
+                <Link
+                    to="/admin/dashboard/addCategory"
+                    className="dashboard__sideNavbar__link">
+                    <PlaylistAddIcon />
+                    <span>Add Category</span>
+                </Link>
+                <Link
+                    to="/admin/dashboard/comment"
+                    className="dashboard__sideNavbar__link">
+                    <MapsUgcIcon />
+                    <span>Comments</span>
+                </Link>
+                <Link
+                    onClick={logOutHandler}
+                    className="dashboard__sideNavbar__link">
+                    <PeopleAltIcon />
+                    <span>Log Out</span>
+                </Link>
+            </div>
 
-			<div className="dashboard__mainContent">
-				<Outlet />
-			</div>
-		</div>
-	);
+            <div className="dashboard__mainContent">
+                <Outlet />
+            </div>
+        </div>
+    );
 };
 
 export default Dashboard;
