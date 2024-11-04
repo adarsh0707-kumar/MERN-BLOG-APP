@@ -1,0 +1,25 @@
+.userHome{
+    width: 100%;
+    height: 100vh;
+}
+
+.userHome__banner{
+    width: 100%;
+    height: 25vw;
+    background: linear-gradient(to right, rgb(0, 234, 255), rgb(9, 82, 219));
+}
+
+.userHome__banner__img{
+    width: 50%;
+    height: 100%;
+}
+
+.userHome__banner__img img{
+    height: 100%;
+}
+
+@media screen and (max-width:750px) {
+    .userHome__banner{
+        height: 35vw;
+    }
+}
