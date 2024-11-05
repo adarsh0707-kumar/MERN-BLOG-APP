@@ -17,6 +17,7 @@ import Blogs from "./user/Blogs/Blogs";
 import Contact from "./user/Contact/Contact";
 import UserLogin from "./user/Authentication/UserLogin";
 import UserSignup from "./user/Authentication/UserSignup";
+import BlogDetail from "./user/Blogs/BlogDetail/BlogDetail";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
             { path: "", element: <UserHome /> },
             { path: "home", element: <UserHome /> },
             { path: "about", element: <AboutUs /> },
-            { path: "blogs", element: <Blogs /> },
+            { path: "blogs", element: <Blogs />, },
+            { path: "blogs/:blogsId", element: <BlogDetail /> },
             { path: "contact", element: <Contact /> },
             { path: "login", element: <UserLogin /> },
             { path: "signup", element: <UserSignup /> },

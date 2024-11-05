@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import '../Blogs/Blogs.css';
 import axios from "axios";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { getBlogById } from './API/api';
 
 const Blogs = () => {
 
-
     const [Category, setCategory] = useState([]);
     const [Blog, setBlog] = useState([]);
-    // const [BlogCategory, setBlogCategory] = useState([]);
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -61,6 +62,16 @@ const Blogs = () => {
             });
     }
 
+    const handleReadMore = (blogId) => {
+        getBlogById(blogId)
+            .then((response) => {
+                // Handle the response data
+                const blog = response.data.blog;
+                
+                // Navigate to BlogDetail page with the blog data
+                navigate(`/blogs/${blogId}`, { state: blog });
+            });
+    };
 
 
 
@@ -89,15 +100,20 @@ const Blogs = () => {
 
 
                                 <p
+
                                     className="blogs__blog__data__blogItem__title">
                                     {Data.title}
 
                                 </p>
 
-                                <button
+                                <Link
+                                    to={`/blogs/${Data._id}`}
+                                    onClick={() => {
+                                        handleReadMore(Data._id)
+                                    }}
                                     className="blogs__blog__btn">
                                     Read More
-                                </button>
+                                </Link>
 
 
                             </div>
@@ -105,7 +121,7 @@ const Blogs = () => {
                         ))}
 
                     </div>
-
+                    <Outlet />
                 </div>
 
 

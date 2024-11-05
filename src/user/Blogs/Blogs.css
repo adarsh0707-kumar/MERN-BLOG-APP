@@ -86,14 +86,13 @@
 }
 
 .blogs__category__btn:hover {
-    background: #eb09ebc5 ;
+    background: #eb09ebc5;
     transition: 0.5s;
 }
 
 .blogs__blog__btn {
     width: 95%;
     height: 3rem;
-   
     margin-bottom: 1.2rem;
     border: none;
     outline: none;
@@ -103,6 +102,11 @@
     border-radius: 15px;
     box-shadow: 5px 5px 10px #f174f1;
     cursor: pointer;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     position: absolute;
     bottom: 0;
 }
