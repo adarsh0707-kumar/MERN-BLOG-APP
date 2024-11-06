@@ -32,7 +32,9 @@ const Login = () => {
 
     return (
         <div className="loginContainer">
+
             <form className="loginContainer__loginBox">
+                
                 <img
                     className="loginContainer__loginBox__img"
                     src={require("../../assets/a.png")}
@@ -71,9 +73,13 @@ const Login = () => {
                         />
                     )}
                     <span>Login</span>
+
                 </button>
+
             </form>
+
         </div>
+
     );
 };
 

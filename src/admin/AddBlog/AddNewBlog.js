@@ -61,16 +61,16 @@ const AddNewBlog = () => {
                 .post(
                     "http://www.localhost:3001/blogs",
                     {
-                    title: blogName,
+                        title: blogName,
                         description: blog,
-                    category: categoryName,
-                    imageUrl: uploadedImageUrl,
+                        category: categoryName,
+                        imageUrl: uploadedImageUrl,
                     },
-                {
-                    headers: {
+                    {
+                        headers: {
                             Authorization: "Bearer " + localStorage.getItem("token"),
                         },
-                },
+                    },
                 )
 
                 .then((res) => {
@@ -80,21 +80,23 @@ const AddNewBlog = () => {
                 .catch((err) => {
                     console.error(err);
                 });
+
+
         } else if (file == null)
             axios
                 .put(
                     `http://www.localhost:3001/blogs/${location.state.myData._id}`,
                     {
-                    title: blogName,
-                    description: blog,
-                    category: categoryName,
-                    imageUrl: location.state.myData.imageUrl,
+                        title: blogName,
+                        description: blog,
+                        category: categoryName,
+                        imageUrl: location.state.myData.imageUrl,
                     },
-                {
-                    headers: {
+                    {
+                        headers: {
                             Authorization: "Bearer " + localStorage.getItem("token"),
                         },
-                },
+                    },
                 )
                 .then((res) => {
                     setLoding(false);
@@ -103,6 +105,7 @@ const AddNewBlog = () => {
                 .catch((err) => {
                     console.error(err);
                 });
+
         else {
             const storage = getStorage(app);
             const myRef = storageRef(storage, `${location.state.myData.imageUrl}`);
@@ -113,16 +116,16 @@ const AddNewBlog = () => {
                 .put(
                     `http://www.localhost:3001/blogs/${location.state.myData._id}`,
                     {
-                    title: blogName,
+                        title: blogName,
                         description: blog,
-                    category: categoryName,
+                        category: categoryName,
                         imageUrl: uploadedImageUrl,
                     },
-                {
-                    headers: {
+                    {
+                        headers: {
                             Authorization: "Bearer " + localStorage.getItem("token"),
                         },
-                },
+                    },
                 )
                 .then((res) => {
                     setLoding(false);
@@ -176,6 +179,7 @@ const AddNewBlog = () => {
                             </option>
                         );
                     })}
+
                 </select>
 
                 <input
@@ -185,6 +189,7 @@ const AddNewBlog = () => {
                     className="addBlog__form__input"
                     type="file"
                 />
+
                 {imageUrl != null && (
                     <img
                         className="addBlog__form__img"
@@ -192,6 +197,7 @@ const AddNewBlog = () => {
                         alt={blogName}
                     />
                 )}
+
                 <button
                     className="addBlog__form__btn"
                     type="submit">
@@ -203,8 +209,11 @@ const AddNewBlog = () => {
                         />
                     )}
                     <span>Submit</span>
+
                 </button>
+
             </form>
+
         </div>
     );
 };

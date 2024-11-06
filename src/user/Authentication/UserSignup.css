@@ -1,0 +1,126 @@
+.userSignup {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+}
+
+.userSignup__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+  box-shadow: 5px 5px 10px;
+  background: #eeeeeed0;
+  border-radius: 20px;
+}
+
+.userSignup__container,
+.userSignup__container__form {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.userSignup__container__heading {
+  text-align: center;
+  margin-top: 1rem;
+  letter-spacing: 1.1px;
+  color: rgb(255, 0, 255);
+}
+
+.userSignup__container__form__label {
+  text-align: justify;
+  margin-top: 1.2rem;
+  margin-left: 5%;
+}
+
+.userSignup__container__form__input {
+  width: 90%;
+  height: 3rem;
+  margin-top: 1.2rem;
+  margin-left: 5%;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  font-size: 20px;
+}
+
+.userSignup__container__form__btn {
+  width: 90%;
+  height: 3rem;
+  margin-left: 5%;
+  margin-bottom: 1.2rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 1.2vw;
+  color: #000000;
+  font-weight: 600;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px #e973e9;
+  background: rgb(255, 0, 255);
+}
+
+
+
+
+
+
+.userSignup__login {
+  position: absolute;
+  bottom: 26%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.userSignup__login__heading{
+  letter-spacing: 1.2px;
+}
+
+.userSignup__login__heading__link{
+  letter-spacing: 1.2px;
+  margin-left: 7px;
+}
+
+
+
+
+
+.password-strength-meter {
+  font-size: 12px;
+  width: 90%;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 15px;
+  margin-left: 5%;
+  margin-top: .7rem;
+}
+
+.password-strength-meter.weak {
+  background-color: #ff0000;
+  /* Red */
+}
+
+.password-strength-meter.fair {
+  background-color: #ffcc00;
+  /* Yellow */
+}
+
+.password-strength-meter.strong {
+  background-color: #00cc00;
+  /* Green */
+}
+
+.password-strength-meter.excellent {
+  background-color: #00ff00;
+  /* Lime */
+}
