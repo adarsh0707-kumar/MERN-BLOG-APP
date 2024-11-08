@@ -18,6 +18,8 @@ import Contact from "./user/Contact/Contact";
 import UserLogin from "./user/Authentication/UserLogin";
 import UserSignup from "./user/Authentication/UserSignup";
 import BlogDetail from "./user/Blogs/BlogDetail/BlogDetail";
+import Comment from "./user/Comment/Comment"
+import Reply from "./user/Comment/Reply/Reply";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +31,11 @@ const router = createBrowserRouter([
             { path: "about", element: <AboutUs /> },
             { path: "blogs", element: <Blogs />, },
             { path: "blogs/:blogsId", element: <BlogDetail /> },
+            { path: "blogs/:blogsId/comment", element: <Comment /> },
+            {
+                path: "blogs/:blogsId/comment/reply/:CommentId", element: <Reply />, children: [
+                    { path: "reply/:CommentId", element: <Reply /> }
+            ] },
             { path: "contact", element: <Contact /> },
             { path: "login", element: <UserLogin /> },
             { path: "signup", element: <UserSignup /> },

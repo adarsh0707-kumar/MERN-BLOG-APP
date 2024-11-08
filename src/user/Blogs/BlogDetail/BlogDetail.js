@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getBlogById } from '../API/api';
 import parse from 'html-react-parser';
 import '../BlogDetail/BlogDetail.css'
@@ -7,6 +7,7 @@ import '../BlogDetail/BlogDetail.css'
 const BlogDetail = () => {
   const [Blog, setBlog] = useState([]);
   const { blogsId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getBlogById(blogsId)
@@ -19,6 +20,16 @@ const BlogDetail = () => {
       })
   }, [blogsId]);
 
+  const handleComment = (blogId) => {
+    getBlogById(blogId)
+      .then((response) => {
+        // Handle the response data
+        const blog = response.data.blog;
+        console.log(blog)
+
+        navigate(`/blogs/${blogId}/comment`, { state: blog });
+      });
+  };
 
 
   return (
@@ -63,6 +74,16 @@ const BlogDetail = () => {
           to='/blogs'
           className='blogDetail__blog__btn'>
           Back
+        </Link>
+
+        <Link
+          to={`/blogs/${Blog.id}/comment`}
+          onClick={() => {
+            handleComment(Blog._id)
+          }}
+          className='blogDetail__blog__btn'>
+
+          Comment
         </Link>
 
       </div>

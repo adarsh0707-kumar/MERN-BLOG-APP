@@ -65,10 +65,7 @@ const Blogs = () => {
     const handleReadMore = (blogId) => {
         getBlogById(blogId)
             .then((response) => {
-                // Handle the response data
                 const blog = response.data.blog;
-                
-                // Navigate to BlogDetail page with the blog data
                 navigate(`/blogs/${blogId}`, { state: blog });
             });
     };
